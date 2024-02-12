@@ -11,6 +11,7 @@ const sanitizer = require('./middlewares/sanitizer.middleware')
 
 const authRoute = require('./routes/auth.route')
 const domainRoute = require('./routes/domain.route')
+const proposalRoute = require('./routes/proposal.route')
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -23,6 +24,7 @@ app.use(sanitizer)
 
 app.use('/auth', authRoute)
 app.use('/domain', domainRoute)
+app.use('/proposal', proposalRoute)
 
 app.get('/', (req, res) => res.send({ message: '🚀 Hello! I am alive!' }))
 app.use((req, res) => res.send({ message: '🚧 Error 404: Requested endpoint not found.' }))
