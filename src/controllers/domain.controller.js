@@ -17,7 +17,7 @@ const createDomain = async (req, res, next) => {
 
 const getDomains = async (req, res, next) => {
 	try {
-		const domains = await DomainService.getDomains(req.query)
+		const domains = await DomainService.getDomains(req.query, req.user?.isAdmin)
 		res.send(new ApiResponse('Domains fetched successfully!', domains))
 	} catch (error) {
 		next(error)

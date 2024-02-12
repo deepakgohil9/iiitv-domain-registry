@@ -8,9 +8,10 @@ const isAdminMiddleware = require('../middlewares/isAdmin.middleware')
 const router = express.Router()
 
 router.use(authMiddleware)
+router.get('/', validate(dto.getDomain), controller.getDomains)
+
 router.use(isAdminMiddleware)
 router.post('/', validate(dto.createDomain), controller.createDomain)
-router.get('/', validate(dto.getDomain), controller.getDomains)
 router.get('/:id', validate(dto.getOneDomain), controller.getDomainById)
 router.put('/:id', validate(dto.updateDomain), controller.updateDomain)
 

@@ -6,8 +6,8 @@ const createDomain = async (data) => {
 	return domain
 }
 
-const getDomains = async (query) => {
-	const domains = await Domain.find(query)
+const getDomains = async (query, showCredential = false) => {
+	const domains = await Domain.find(query, showCredential ? {} : { name: 1, isActive: 1 })
 	return domains
 }
 
