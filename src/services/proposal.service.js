@@ -7,8 +7,13 @@ const create = async (data) => {
 	return await proposal.save()
 }
 
-const getOne = async (user, id) => {
-	const proposal = await Proposal.findOne({ _id: id, user }).populate('domain', { name: 1 })
+const getOne = async (id, user = null) => {
+	const query = { _id: id }
+	if (user) {
+		query.user = user
+	}
+
+	const proposal = await Proposal.findOne(query).populate('domain', { name: 1 })
 	return proposal
 }
 

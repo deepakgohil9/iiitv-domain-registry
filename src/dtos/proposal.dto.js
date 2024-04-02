@@ -29,6 +29,7 @@ const create = {
 const get = {
 	body: Joi.object().keys({}),
 	query: Joi.object().keys({
+		user: Joi.string().hex().length(24).required(),
 		action: Joi.string().valid('create', 'update', 'delete'),
 		name: Joi.string().disallow('@', 'www'),
 		domain: Joi.string().hex().length(24),

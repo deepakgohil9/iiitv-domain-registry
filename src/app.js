@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const cors = require('cors')
 const helmet = require('helmet')
 const { xss } = require('express-xss-sanitizer')
 const connect = require('./databases/mongo.database')
@@ -16,6 +17,7 @@ const proposalRoute = require('./routes/proposal.route')
 const PORT = process.env.PORT || 3000
 const app = express()
 
+app.use(cors())
 app.use(helmet())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())

@@ -24,7 +24,13 @@ const create = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
 	try {
-		const proposal = await ProposalService.getOne(req.user.id, req.params.id)
+		let proposal
+		if (req.user.isAdmin) {
+			proposal = await ProposalService.getOne(req.params.id)
+		} else {
+			proposal = await ProposalService.getOne(req.params.id, req.user.id)
+		}
+
 		if (!proposal) {
 			throw new HttpException(httpErrors.NOT_FOUND, 'Proposal not found')
 		}
@@ -37,7 +43,12 @@ const getOne = async (req, res, next) => {
 
 const get = async (req, res, next) => {
 	try {
-		const proposals = await ProposalService.get({ user: req.user.id, ...req.query })
+		const query = req.query
+		if (!req.user?.isAdmin) {
+			query.user = req.user.id
+		}
+
+		const proposals = await ProposalService.get(query)
 		res.status(200).json(new ApiResponse('Proposals retrieved', proposals))
 	} catch (error) {
 		next(error)
