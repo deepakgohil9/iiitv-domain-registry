@@ -9,9 +9,7 @@ const create = async (data) => {
 
 const getOne = async (id, user = null) => {
 	const query = { _id: id }
-	if (user) {
-		query.user = user
-	}
+	if (user) query.user = user
 
 	const proposal = await Proposal.findOne(query).populate('domain', { name: 1 })
 	return proposal

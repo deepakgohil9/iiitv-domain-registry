@@ -17,10 +17,10 @@ const getGoogleAuthUrl = async (req, res, next) => {
 const googleSignIn = async (req, res, next) => {
 	try {
 		const data = await getAccountFromCode(req.body.code)
-		const domain = data.email.split('@')[1]
-		if (domain !== 'iiitvadodara.ac.in' && domain !== 'iiitv.ac.in') {
-			throw new HttpException(httpErrors.FORBIDDEN, 'Only IIIT Vadodara students and faculty are allowed to sign in!')
-		}
+		// const domain = data.email.split('@')[1]
+		// if (domain !== 'iiitvadodara.ac.in' && domain !== 'iiitv.ac.in') {
+		// throw new HttpException(httpErrors.FORBIDDEN, 'Only IIIT Vadodara students and faculty are allowed to sign in!')
+		// }
 
 		let user = await userService.findUserByEmail(data.email)
 		if (!user) {
